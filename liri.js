@@ -17,14 +17,24 @@ switch (userInput) {
         break;
 }
 
+
 function getUserTweets() {
-    client.get(`statuses/lookup`, {id: 20}, function (error, tweet, response) {
+    /*COULD WORK IF I FOUND A WAY TO GET TWEET ID'S AND LOOP THROUGH THEM*/
+    client.get(`statuses/lookup`, { id: 20 }, function (error, tweet, response) {
         if (error) throw error;
         console.log(tweet);
         // console.log(tweet[0].text);
     });
-}
 
+    // client.get('search/tweets', { q: 'SkyNet10100' }, function (error, tweets, response) {
+    //     for (var i = 0; i < tweets.statuses.length; i++) {
+    //         console.log(tweets.statuses[i].text);
+    //         if (i === 20) {
+    //             i = tweets.statuses.length;
+    //         }
+    //     }
+    // });
+}
 // console.log(client);
 
 
