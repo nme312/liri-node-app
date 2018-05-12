@@ -4,11 +4,9 @@ var keys = require("./keys.js");
 var Twitter = require("twitter");
 var Spotify = require("node-spotify-api");
 var request = require("request");
-var OMDB = require("omdb");
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
-var omdb = new OMDB(keys.omdb);
 
 var userInput = process.argv[2];
 
@@ -56,24 +54,19 @@ function getMovie() {
     for (var i = 4; i < process.argv.length; i++) {
         movieSearch += ` ${process.argv[i]}`;
     }
-    omdb.get({ title: movieSearch}, true, function (err, movie) {
-        if (err) {
-            return console.error(err);
+    request(`http://www.omdbapi.com/?t=${movieSearch}&y=&plot=short&apikey=trilogy`, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            console.log(JSON.parse(body).Title);
+            console.log(JSON.parse(body).Ratings[0].Value);
+            console.log(JSON.parse(body).Ratings[1].Value);
+            console.log(JSON.parse(body).Country);
+            console.log(JSON.parse(body).Language);
+            console.log(JSON.parse(body).Plot);
+            console.log(JSON.parse(body).Actors);
         }
-
-        if (!movie) {
-            return console.log('Movie not found!');
-        }
-
-        console.log('%s (%d) %d/10', movie.title, movie.year, movie.imdb.rating);
-        console.log(movie.plot);
-
-        // Saw (2004) 7.6/10
-        // Two men wake up at opposite sides of a dirty, disused bathroom, chained
-        // by their ankles to pipes. Between them lies...
     });
-
 }
+
 
 
 
@@ -111,8 +104,8 @@ function getMovie() {
 
 //*TO-WORK*
 //add function to switch case statement
-//add argument to function
-// acount for multiple spaces in argument *could use reduce* *could use for loop found in week-5 activity-18*
+//add user input to post
+// acount for multiple spaces in user input *could use reduce* *could use for loop found in week-5 activity-18*
 // function postTweet() {
 //     client.post('statuses/update', { status: 'Has anyone seen T-800 Model 101? I miss him.' }, function (error, tweet, response) {
 //         if (error) throw error;
