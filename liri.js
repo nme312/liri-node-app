@@ -93,41 +93,6 @@ function obey() {
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //*TO-WORK*
 //add function to switch case statement
 //add user input to post
