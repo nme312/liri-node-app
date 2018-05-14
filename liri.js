@@ -16,10 +16,18 @@ switch (userInput) {
         getUserTweets();
         break;
     case "spotify-this-song":
-        spotifySong();
+        if (!spotifySearch) {
+            spotifySong("The Sign Ace of Base");
+        } else {
+            spotifySong(spotifySearch)
+        }
         break;
     case "movie-this":
-        getMovie();
+        if (!movieSearch) {
+            getMovie("Mr.Nobody");
+        } else {
+            getMovie(movieSearch);
+        }
         break;
     case "do-what-it-says":
         obey();
@@ -37,11 +45,12 @@ function getUserTweets() {
     });
 }
 
-function spotifySong() {
-    var spotifySearch = process.argv[3];
-    for (var i = 4; i < process.argv.length; i++) {
-        spotifySearch += ` ${process.argv[i]}`;
-    }
+var spotifySearch = process.argv[3];
+for (var i = 4; i < process.argv.length; i++) {
+    spotifySearch += ` ${process.argv[i]}`;
+}
+
+function spotifySong(spotifySearch) {
     spotify.search({ type: 'track', query: spotifySearch }, function (err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
@@ -53,11 +62,12 @@ function spotifySong() {
     });
 }
 
-function getMovie() {
-    var movieSearch = process.argv[3];
-    for (var i = 4; i < process.argv.length; i++) {
-        movieSearch += ` ${process.argv[i]}`;
-    }
+var movieSearch = process.argv[3];
+for (var i = 4; i < process.argv.length; i++) {
+    movieSearch += ` ${process.argv[i]}`;
+}
+
+function getMovie(movieSearch) {
     request(`http://www.omdbapi.com/?t=${movieSearch}&y=&plot=short&apikey=trilogy`, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             console.log(JSON.parse(body).Title);
@@ -70,6 +80,7 @@ function getMovie() {
         }
     });
 }
+
 
 function obey() {
     fs.readFile("random.txt", "utf8", function (error, data) {

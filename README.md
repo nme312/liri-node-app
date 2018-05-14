@@ -15,14 +15,14 @@ Liri has 4 functions
 
 3. movie-this
     - search the omdb api for a movie inputed in the command-line
-     - displays movie title
-     - displays movie premier year
-     - displays IMDB rating
-     - displays Rotten Tomatoes
-     - displays country where the movie came out
-     - displays language of the movie
-     - displays plot of the movie
-     - displays actors in the movie
+        - displays movie title
+        - displays movie premier year
+        - displays IMDB rating
+        - displays Rotten Tomatoes
+        - displays country where the movie came out
+        - displays language of the movie
+        - displays plot of the movie
+        - displays actors in the movie
 
 4. do-what-it-says
     - gets text from random.txt file and uses text to run one the other three Liri functions
