@@ -4,6 +4,7 @@ var keys = require("./keys.js");
 var Twitter = require("twitter");
 var Spotify = require("node-spotify-api");
 var request = require("request");
+var fs = require("fs");
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -19,6 +20,9 @@ switch (userInput) {
         break;
     case "movie-this":
         getMovie();
+        break;
+    case "do-what-it-says":
+        obey();
         break;
 }
 
@@ -63,6 +67,28 @@ function getMovie() {
             console.log(JSON.parse(body).Language);
             console.log(JSON.parse(body).Plot);
             console.log(JSON.parse(body).Actors);
+        }
+    });
+}
+
+function obey() {
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (error) {
+            return console.log(error);
+        }
+        var dataArr = data.split(",");
+        console.log(dataArr[0], dataArr[1]);
+        process.argv[3] = dataArr[1];
+        switch (dataArr[0]) {
+            case "my-tweets":
+                getUserTweets();
+                break;
+            case "spotify-this-song":
+                spotifySong();
+                break;
+            case "movie-this":
+                getMovie();
+                break;
         }
     });
 }
