@@ -16,18 +16,10 @@ switch (userInput) {
         getUserTweets();
         break;
     case "spotify-this-song":
-        if (!spotifySearch) {
-            spotifySong("The Sign Ace of Base");
-        } else {
-            spotifySong(spotifySearch)
-        }
+        spotifySong();
         break;
     case "movie-this":
-        if (!movieSearch) {
-            getMovie("Mr.Nobody");
-        } else {
-            getMovie(movieSearch);
-        }
+        getMovie();
         break;
     case "do-what-it-says":
         obey();
@@ -45,12 +37,14 @@ function getUserTweets() {
     });
 }
 
-var spotifySearch = process.argv[3];
-for (var i = 4; i < process.argv.length; i++) {
-    spotifySearch += ` ${process.argv[i]}`;
-}
-
-function spotifySong(spotifySearch) {
+function spotifySong() {
+    var spotifySearch = process.argv[3];
+    for (var i = 4; i < process.argv.length; i++) {
+        spotifySearch += ` ${process.argv[i]}`;
+    }
+    if(!spotifySearch){
+        spotifySearch = "The Sign Ace of Base";
+    }
     spotify.search({ type: 'track', query: spotifySearch }, function (err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
@@ -62,12 +56,14 @@ function spotifySong(spotifySearch) {
     });
 }
 
-var movieSearch = process.argv[3];
-for (var i = 4; i < process.argv.length; i++) {
-    movieSearch += ` ${process.argv[i]}`;
-}
-
-function getMovie(movieSearch) {
+function getMovie() {
+    var movieSearch = process.argv[3];
+    for (var i = 4; i < process.argv.length; i++) {
+        movieSearch += ` ${process.argv[i]}`;
+    }
+    if(!movieSearch){
+        movieSearch = "Mr.Nobody";
+    }
     request(`http://www.omdbapi.com/?t=${movieSearch}&y=&plot=short&apikey=trilogy`, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             console.log(JSON.parse(body).Title);
@@ -80,7 +76,6 @@ function getMovie(movieSearch) {
         }
     });
 }
-
 
 function obey() {
     fs.readFile("random.txt", "utf8", function (error, data) {

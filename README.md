@@ -6,6 +6,9 @@ Liri has 4 functions
 1. my-tweets
     - gets and displays the last 20 tweets from a specified user in the terminal
 
+![my-tweets-image](./images/Screenshot (9).png)
+
+
 2. spotify-this-song
     - searchs the spotify api for a song inputed in the command-line
         - displays artist(s) name
